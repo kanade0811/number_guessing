@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="jp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <!-- タイトル -->
+    <div id="title">四則演算であなたの数を当てます</div>
+    
+    <!-- 入力 -->
+    <div>
+        <form>
+            <label for="input">あなたが思い浮かべた数を入力してください：</label>
+            <input type="input" id="input" />
+            <button id="button">送信</button>
+        </form>
+    </div>
+
+    <!-- 計算過程 -->
+    <div id="process">
+        <p id="process">
+
+        </p>
+    </div>
+
+    <!-- 出力 -->
+    <div>
+        <form>
+            <label for="output">あなたの入力：</label>
+            <input type="number" id="output">
+        </form>
+    </div>
+
+  </body>
+  <script>
+    const input = document.getElementById("input");
+    const functions = [
+        function(input){
+            answer=[
+                "3をかける：",input*3,
+                "6を足す：",input*3+6,
+                "3で割る：",(input*3+6)/3,
+                "2を引く：",(input*3+6)/3-2
+            ];
+            return [
+                "3をかける：",input*3,
+                "6を足す：",input*3+6,
+                "3で割る：",(input*3+6)/3,
+                "2を引く：",(input*3+6)/3-2
+            ];
+        }
+    ];
+
+    const button=document.getElementById("button");
+    button.addEventListener("click",function(e){
+
+        e.preventDefault();
+
+        const input=document.getElementById("input").value;
+
+        do_function=functions[Math.random()*functions.length];
+        do_function(input);
+
+        const answer=1; //仮
+        const output=document.getElementById("output");
+        output.value=answer;
+    });
+
+  </script>
+</html>
