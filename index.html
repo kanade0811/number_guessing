@@ -20,18 +20,15 @@
     </div>
 
     <!-- 計算過程 -->
-    <div id="process">
+    <div>
         <p id="process">
-
         </p>
     </div>
 
     <!-- 出力 -->
     <div>
-        <form>
-            <label for="output">あなたの入力：</label>
-            <input type="number" id="output">
-        </form>
+        <p id="output">
+        </p>
     </div>
 
   </body>
@@ -39,35 +36,51 @@
     const input = document.getElementById("input");
     const functions = [
         function(input){
-            answer=[
-                "3をかける：",input*3,
-                "6を足す：",input*3+6,
-                "3で割る：",(input*3+6)/3,
-                "2を引く：",(input*3+6)/3-2
-            ];
             return [
-                "3をかける：",input*3,
-                "6を足す：",input*3+6,
-                "3で割る：",(input*3+6)/3,
-                "2を引く：",(input*3+6)/3-2
+                "3をかける",input*3,
+                "6を足す",input*3+6,
+                "3で割る",(input*3+6)/3,
+                "2を引く",(input*3+6)/3-2
             ];
         }
     ];
+    
+    function toSentence(answer){
+        // 数字を文字型にする
+        for(let k=0;k<answer.length;k++){
+            if(k%2===1){
+                answer[k]=answer[k].toString();
+            }
+        }
+        
+        let sentences=[];
+        for(let k=0;k<answer.length/2;k++){
+            sentences.push([answer[2*k],answer[2*k+1]].join("："));
+        };
+
+        // 計算過程を表示
+        const process=document.getElementById("process");
+        process.innerHTML=sentences.join("<br>\n");
+
+        // 計算結果を表示
+        const output=document.getElementById("output");
+        const output_sentence="あなたが思い浮かべた数は"+answer.at(-1)+"ですよね？";
+        output.innerHTML=output_sentence;
+    }
 
     const button=document.getElementById("button");
     button.addEventListener("click",function(e){
 
+        // おまじない
         e.preventDefault();
 
+        // 入力された数を取る
         const input=document.getElementById("input").value;
 
-        do_function=functions[Math.random()*functions.length];
-        do_function(input);
-
-        const answer=1; //仮
-        const output=document.getElementById("output");
-        output.value=answer;
-    });
+        // 適当な関数に入れる
+        const process=functions[Math.floor(Math.random()*functions.length)](input);
+        toSentence(process);
+     });
 
   </script>
 </html>
